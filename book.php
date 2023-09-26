@@ -11,6 +11,7 @@ $book = new Books();
 $arr = $book->getList();
 ?>
 <style>
+
     .maintable{
         text-align: center ;
     }
