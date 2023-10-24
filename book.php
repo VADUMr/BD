@@ -11,26 +11,27 @@ $book = new Books();
 $arr = $book->getList();
 ?>
 <style>
-
-    .maintable{
-        text-align: center ;
+    .centre{
+        text-align: center;
     }
     .maintable1{
-        text-align: center ;
         color: red;
     }
+    .maintable2{
+         color: blue;
+    }
     .main{
-        display: flex; /* встановлення блоку як гнучкого контейнера */
-        justify-content: center; /* встановлення горизонтального вирівнювання елементів в центр */
-        align-items: center;
+        margin: 0 auto;
+        width: 100%;
+        text-align: center;
     }
     .Image{
         width: 50px;
         height: 50px;
     }
 </style>
-<div class="main">
-    <table class="maintable">
+<div >
+    <table class="main">
         <thead>
         <tr>
             <th>ID</th>
@@ -53,10 +54,19 @@ $arr = $book->getList();
         </tbody>
     </table>
 </div>
-<div class="maintable1"><?php for ($page=1;$page<=$book->getRowCount();$page++){
-    echo '<a href = "book.php?page='.$page.'">'.$page.'</a> ⠀⠀';}?>
+<div class ="centre">
+    <?php for ($page=1;$page<=$book->getRowCount();$page++)
+    {
+        if(!isset($_GET['page']) ) {
+            $_GET['page'] = 1;
+        }
+        if ($page == $_GET['page']) {
+            echo '<span class ="maintable1"><a href = "book.php?page=' . $page . '">' . $page . '</a>⠀</span>⠀';
+        } else {
+            echo '<span class ="maintable2"><a href = "book.php?page=' . $page . '">' . $page . '</a>⠀</span>⠀';
+        }
+    }?>
 </div>
-
      <form method="post"  action= "./controllers/Books.php" enctype="multipart/form-data">
         <input type="text" name="title" placeholder="Enter title" />
         <input type="text" name="authors" placeholder="Enter Authors" />
@@ -65,9 +75,6 @@ $arr = $book->getList();
         <button style="width: 100%;" type="submit" name="submit">Add</button>
          </div>
     </form>
-
-
-
 <?php 
     include_once 'footer.php'
 ?>
